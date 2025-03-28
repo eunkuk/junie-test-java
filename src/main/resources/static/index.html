@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>할 일 관리 애플리케이션</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>할 일 관리 애플리케이션</h1>
+        </header>
+
+        <main>
+            <section class="todo-form">
+                <h2>새 할 일 추가</h2>
+                <form id="todo-form">
+                    <div class="form-group">
+                        <label for="title">제목</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">설명</label>
+                        <textarea id="description" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dueDate">마감일</label>
+                        <input type="date" id="dueDate" name="dueDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">카테고리</label>
+                        <select id="category" name="category">
+                            <option value="일반">일반</option>
+                            <option value="업무">업무</option>
+                            <option value="개인">개인</option>
+                            <option value="중요">중요</option>
+                            <option value="긴급">긴급</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">추가</button>
+                </form>
+            </section>
+
+            <section class="todo-filters">
+                <h2>할 일 필터</h2>
+                <div class="filter-buttons">
+                    <button id="all-todos" class="btn btn-filter active">모든 할 일</button>
+                    <button id="incomplete-todos" class="btn btn-filter">미완료 할 일</button>
+                    <button id="completed-todos" class="btn btn-filter">완료된 할 일</button>
+                </div>
+                <div class="view-buttons">
+                    <button id="list-view" class="btn btn-view active">목록 보기</button>
+                    <button id="calendar-view" class="btn btn-view">달력 보기</button>
+                </div>
+            </section>
+
+            <section class="todo-list" id="list-view-container">
+                <h2>할 일 목록</h2>
+                <div id="todos-container">
+                    <!-- Todo items will be dynamically added here -->
+                    <div class="loading">로딩 중...</div>
+                </div>
+            </section>
+
+            <section class="calendar-view" id="calendar-view-container" style="display: none;">
+                <h2>할 일 달력</h2>
+                <div class="calendar-controls">
+                    <button id="prev-month" class="btn">이전 달</button>
+                    <h3 id="current-month">2023년 1월</h3>
+                    <button id="next-month" class="btn">다음 달</button>
+                </div>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <div class="calendar-cell">일</div>
+                        <div class="calendar-cell">월</div>
+                        <div class="calendar-cell">화</div>
+                        <div class="calendar-cell">수</div>
+                        <div class="calendar-cell">목</div>
+                        <div class="calendar-cell">금</div>
+                        <div class="calendar-cell">토</div>
+                    </div>
+                    <div id="calendar-body">
+                        <!-- Calendar cells will be dynamically added here -->
+                        <div class="loading">달력 로딩 중...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 할 일 관리 애플리케이션</p>
+        </footer>
+    </div>
+
+    <!-- Todo item template -->
+    <template id="todo-template">
+        <div class="todo-item">
+            <div class="todo-header">
+                <span class="todo-category"></span>
+            </div>
+            <div class="todo-content">
+                <h3 class="todo-title"></h3>
+                <p class="todo-description"></p>
+                <p class="todo-meta">
+                    <span class="todo-created"></span>
+                    <span class="todo-updated"></span>
+                    <span class="todo-due-date"></span>
+                </p>
+            </div>
+            <div class="todo-actions">
+                <button class="btn btn-complete">완료</button>
+                <button class="btn btn-edit">수정</button>
+                <button class="btn btn-delete">삭제</button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Edit todo modal template -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>할 일 수정</h2>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+                <div class="form-group">
+                    <label for="edit-title">제목</label>
+                    <input type="text" id="edit-title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-description">설명</label>
+                    <textarea id="edit-description" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-dueDate">마감일</label>
+                    <input type="date" id="edit-dueDate" name="dueDate">
+                </div>
+                <div class="form-group">
+                    <label for="edit-category">카테고리</label>
+                    <select id="edit-category" name="category">
+                        <option value="일반">일반</option>
+                        <option value="업무">업무</option>
+                        <option value="개인">개인</option>
+                        <option value="중요">중요</option>
+                        <option value="긴급">긴급</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-completed">완료 상태</label>
+                    <input type="checkbox" id="edit-completed" name="completed">
+                </div>
+                <button type="submit" class="btn btn-primary">저장</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js" type="module"></script>
+</body>
+</html>
